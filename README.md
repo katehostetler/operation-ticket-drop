@@ -1,6 +1,6 @@
 # Operation Bieber World Tour
 
-A clinical response to an incurable diagnosis of Bieber fever, first presenting in 2010 and periodically flaring whenever a tour is announced. Symptoms include, but are not limited to: involuntary Ticketmaster refreshes, elevated heart rate during "One Less Lonely Girl," and the unshakeable belief that this time, the front row is attainable.
+A clinical response to an incurable diagnosis of Bieber fever, first presenting in 2009 and periodically flaring whenever a tour is announced. Symptoms include, but are not limited to: involuntary Ticketmaster refreshes, elevated heart rate during "One Less Lonely Girl," and the unshakeable belief that this time, the front row is attainable.
 
 There is no known treatment. The briefing document is a coping mechanism.
 
