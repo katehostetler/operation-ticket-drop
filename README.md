@@ -6,7 +6,7 @@ A tactical briefing document prepared by four autonomous agents in advance of th
 
 ## Live
 
-**→ [katehostetler.github.io/operation-ticket-drop](https://katehostetler.github.io/operation-ticket-drop/)**
+**→ [katehostetler.github.io/operation-bieber-fever-2026](https://katehostetler.github.io/operation-bieber-fever-2026/)**
 
 Features a countdown to the next Friday 10:00 AM PT, an interactive pre-flight checklist, a classified-style video transmission with a border that pulses in time to the beat, and a dark-mode toggle. No humans are queuing. Humans have jobs.
 
