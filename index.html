@@ -1,0 +1,1021 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Operation: Bieber Drop — Tactical Briefing</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght,SOFT,WONK@9..144,300..900,30..100,0..1&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --pink: #f5c3cd;
+    --pink-deep: #e6a5b3;
+    --ink: #0e0e10;
+    --ink-2: #2a2a2e;
+    --paper: #ffffff;
+    --paper-warm: #fbf6f0;
+    --accent: #c8352e;
+    --rule: rgba(14,14,16,.18);
+    --rule-soft: rgba(14,14,16,.08);
+    --serif: 'Fraunces', 'Recoleta', 'Canela', ui-serif, Georgia, serif;
+    --mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+    --page: min(1120px, 92vw);
+  }
+  [data-theme="dark"] {
+    --pink: #0e0e10;
+    --pink-deep: #1a1a1d;
+    --ink: #f5c3cd;
+    --ink-2: #d9a9b4;
+    --paper: #18181b;
+    --paper-warm: #1f1f23;
+    --accent: #ff8a94;
+    --rule: rgba(245,195,205,.24);
+    --rule-soft: rgba(245,195,205,.10);
+  }
+  [data-theme="dark"] body { background: #0e0e10; }
+
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    background: var(--pink); color: var(--ink);
+    font-family: var(--serif); font-weight: 400;
+    -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale;
+    min-height: 100vh;
+  }
+
+  .caps { font-family: var(--mono); font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase; font-weight: 500; }
+  .caps-sm { font-family: var(--mono); font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; font-weight: 500; }
+  .rule { border: 0; border-top: 1px solid var(--ink); margin: 0; }
+  .hair { border-top: 1px solid var(--rule); }
+
+  .classification {
+    background: var(--ink); color: var(--pink);
+    padding: 11px 20px;
+    display: flex; justify-content: space-between; align-items: center;
+    gap: 18px; flex-wrap: wrap;
+    position: sticky; top: 0; z-index: 50;
+  }
+  .classification .dot {
+    width: 6px; height: 6px; border-radius: 50%;
+    background: var(--pink);
+    animation: blink 1.6s ease-in-out infinite;
+    display: inline-block; margin-right: 8px; vertical-align: middle;
+  }
+  @keyframes blink { 0%,100% { opacity: 1; } 50% { opacity: .25; } }
+
+  .page { width: var(--page); margin: 0 auto; padding: 64px 0 96px; }
+
+  .hero {
+    padding: 56px 0 64px;
+    border-top: 1px solid var(--ink); border-bottom: 1px solid var(--ink);
+    position: relative;
+  }
+  .hero__meta { display: flex; justify-content: space-between; margin-bottom: 40px; gap: 20px; flex-wrap: wrap; }
+  .hero__title {
+    font-family: var(--serif); font-weight: 900;
+    font-size: clamp(56px, 10vw, 140px); line-height: 0.92;
+    letter-spacing: -0.025em; margin: 0;
+    font-variation-settings: "opsz" 144, "SOFT" 30, "WONK" 0;
+  }
+  .hero__title em { font-style: italic; font-weight: 400; font-variation-settings: "opsz" 144, "SOFT" 100, "WONK" 1; }
+  .hero__colon { color: var(--ink); font-style: italic; font-variation-settings: "opsz" 144, "SOFT" 100, "WONK" 1; }
+  .hero__sub { font-family: var(--serif); font-style: italic; font-weight: 300; font-size: clamp(20px, 2.2vw, 28px); margin: 28px 0 0; color: var(--ink-2); letter-spacing: -.01em; }
+
+  .countdown { margin-top: 56px; display: grid; grid-template-columns: repeat(4, 1fr); border-top: 1px solid var(--ink); border-bottom: 1px solid var(--ink); }
+  .cd__cell { padding: 24px 20px; border-right: 1px solid var(--ink); text-align: center; }
+  .cd__cell:last-child { border-right: 0; }
+  .cd__num { font-family: var(--serif); font-weight: 900; font-size: clamp(44px, 6.5vw, 88px); line-height: 1; font-variation-settings: "opsz" 144, "SOFT" 30; font-feature-settings: "tnum" 1; display: block; margin-bottom: 8px; }
+  .cd__label { color: var(--ink-2); }
+  .cd__caption { display: flex; justify-content: space-between; margin-top: 16px; color: var(--ink-2); }
+
+  .section { padding: 80px 0 0; }
+  .section__head { display: grid; grid-template-columns: 1fr 3fr; gap: 24px; align-items: baseline; padding-bottom: 24px; margin-bottom: 40px; border-bottom: 1px solid var(--ink); }
+  .section__num { color: var(--ink-2); }
+  .section__title { font-family: var(--serif); font-weight: 800; font-size: clamp(32px, 4vw, 52px); margin: 0; line-height: 1; letter-spacing: -.02em; font-variation-settings: "opsz" 144, "SOFT" 30; }
+  .section__title em { font-style: italic; font-weight: 400; font-variation-settings: "opsz" 144, "SOFT" 100, "WONK" 1; }
+
+  .brief { display: grid; grid-template-columns: 1fr 1fr; gap: 56px; }
+  .brief__prose { font-family: var(--serif); font-size: 20px; line-height: 1.55; font-weight: 350; }
+  .brief__prose p + p { margin-top: 1em; }
+  .brief__prose em { font-style: italic; }
+  .drop-cap::first-letter { font-family: var(--serif); float: left; font-size: 5.2em; line-height: .82; font-weight: 800; padding-right: 12px; padding-top: 6px; font-variation-settings: "opsz" 144, "SOFT" 30; }
+  .stats { background: var(--paper); padding: 32px; display: flex; flex-direction: column; justify-content: center; gap: 24px; }
+  .stat-row { display: flex; justify-content: space-between; align-items: baseline; padding-bottom: 16px; border-bottom: 1px solid var(--rule); }
+  .stat-row:last-child { border-bottom: 0; padding-bottom: 0; }
+  .stat-row__label { max-width: 58%; }
+  .stat-row__value { font-family: var(--serif); font-weight: 800; font-size: 40px; line-height: 1; font-feature-settings: "tnum" 1; font-variation-settings: "opsz" 144; }
+  .stat-row__value em { font-style: italic; font-weight: 400; font-variation-settings: "opsz" 144, "SOFT" 100, "WONK" 1; color: var(--accent); }
+
+  .roster { display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; }
+  .member { background: var(--paper); padding: 28px 24px 24px; display: flex; flex-direction: column; gap: 16px; min-height: 280px; }
+  .member__top { display: flex; justify-content: space-between; align-items: center; color: var(--ink-2); }
+  .member__status { display: inline-flex; align-items: center; gap: 6px; }
+  .member__dot { width: 7px; height: 7px; border-radius: 50%; background: currentColor; }
+  .member[data-status="go"] .member__status { color: #1a7a3a; }
+  .member[data-status="standby"] .member__status { color: #8a6a0a; }
+  .member[data-status="remote"] .member__status { color: var(--ink-2); }
+  .member[data-status="critical"] .member__status { color: var(--accent); }
+  [data-theme="dark"] .member[data-status="go"] .member__status { color: #79e0a1; }
+  [data-theme="dark"] .member[data-status="standby"] .member__status { color: #f0c760; }
+  .member__name { font-family: var(--serif); font-weight: 800; font-size: 44px; line-height: .95; margin: 8px 0 0; letter-spacing: -.02em; font-variation-settings: "opsz" 144, "SOFT" 30; }
+  .member__name em { font-style: italic; font-weight: 400; font-variation-settings: "opsz" 144, "SOFT" 100, "WONK" 1; }
+  .member__role { font-family: var(--serif); font-style: italic; font-size: 17px; color: var(--ink-2); line-height: 1.35; font-weight: 300; flex: 1; }
+  .member__foot { display: flex; justify-content: space-between; align-items: baseline; border-top: 1px solid var(--rule); padding-top: 14px; color: var(--ink-2); }
+
+  .flowchart { background: var(--paper); padding: 40px 32px; }
+  .flowchart svg { display: block; width: 100%; height: auto; }
+  .flowchart__legend { display: flex; gap: 28px; margin-top: 24px; flex-wrap: wrap; border-top: 1px solid var(--rule); padding-top: 20px; }
+  .legend-item { display: inline-flex; align-items: center; gap: 10px; color: var(--ink-2); }
+  .legend-swatch { width: 22px; height: 3px; background: var(--ink); }
+  .legend-swatch.fail { background: var(--accent); height: 0; border-top: 2px dashed var(--accent); }
+
+  .risk-table { width: 100%; border-collapse: collapse; background: var(--paper); }
+  .risk-table th, .risk-table td { text-align: left; padding: 20px; border-bottom: 1px solid var(--rule); vertical-align: top; }
+  .risk-table thead th { border-bottom: 1px solid var(--ink); color: var(--ink-2); font-weight: 500; }
+  .risk-table tbody tr:last-child td { border-bottom: 0; }
+  .risk-name { font-family: var(--serif); font-size: 18px; font-weight: 500; line-height: 1.3; }
+  .pill { display: inline-block; font-family: var(--mono); font-size: 10px; letter-spacing: .18em; text-transform: uppercase; padding: 5px 9px; border: 1px solid var(--ink); }
+  .pill--hi { background: var(--ink); color: var(--pink); border-color: var(--ink); }
+  .pill--md { background: transparent; color: var(--ink); }
+  .pill--lo { color: var(--ink-2); border-color: var(--rule); }
+  .pill--crit { background: var(--accent); color: #fff; border-color: var(--accent); }
+  [data-theme="dark"] .pill--crit { color: #0e0e10; }
+  .mitigation { font-family: var(--serif); font-style: italic; font-weight: 300; font-size: 15px; line-height: 1.45; color: var(--ink-2); }
+
+  .checklist { display: flex; flex-direction: column; }
+  .cli { display: grid; grid-template-columns: 140px 1fr auto; gap: 32px; align-items: start; padding: 24px 0; border-top: 1px solid var(--rule); }
+  .cli:first-child { border-top: 1px solid var(--ink); }
+  .cli:last-child { border-bottom: 1px solid var(--ink); }
+  .cli__t { font-family: var(--serif); font-weight: 800; font-size: 32px; line-height: 1; font-feature-settings: "tnum" 1; font-variation-settings: "opsz" 144, "SOFT" 30; padding-top: 4px; }
+  .cli__t em { font-style: italic; font-weight: 400; color: var(--accent); font-variation-settings: "opsz" 144, "SOFT" 100, "WONK" 1; }
+  .cli__items { display: flex; flex-direction: column; gap: 10px; }
+  .cli__item { display: flex; align-items: flex-start; gap: 14px; cursor: pointer; font-size: 17px; line-height: 1.4; user-select: none; }
+  .cli__box { flex-shrink: 0; width: 18px; height: 18px; border: 1.5px solid var(--ink); margin-top: 3px; display: flex; align-items: center; justify-content: center; transition: background .15s ease; }
+  .cli__item.done .cli__box { background: var(--ink); }
+  .cli__item.done .cli__box::after { content: ''; width: 10px; height: 5px; border-left: 2px solid var(--pink); border-bottom: 2px solid var(--pink); transform: rotate(-45deg) translate(1px, -1px); }
+  .cli__item.done .cli__text { color: var(--ink-2); text-decoration: line-through; text-decoration-thickness: 1px; }
+  .cli__count { font-family: var(--mono); font-size: 11px; letter-spacing: .2em; text-transform: uppercase; color: var(--ink-2); padding-top: 10px; white-space: nowrap; }
+
+  .foot { margin-top: 96px; padding-top: 28px; border-top: 1px solid var(--ink); display: flex; justify-content: space-between; gap: 20px; flex-wrap: wrap; color: var(--ink-2); }
+
+  .tweaks { position: fixed; bottom: 16px; right: 16px; z-index: 200; background: var(--paper); color: var(--ink); border: 1px solid var(--ink); padding: 8px 10px; box-shadow: 0 0 0 2px var(--pink); }
+  .tweaks__title { display: none; }
+  .tweaks__row { display: flex; justify-content: space-between; align-items: center; gap: 10px; padding: 0; }
+  .tweaks__label { font-family: var(--mono); font-size: 9px; letter-spacing: .2em; text-transform: uppercase; font-weight: 500; color: var(--ink-2); }
+  .tweaks__label em { font-style: normal; font-weight: 500; color: var(--ink); }
+  .switch { position: relative; width: 28px; height: 14px; background: transparent; border: 1px solid var(--ink); cursor: pointer; padding: 0; transition: background .18s ease; }
+  .switch::after { content: ''; position: absolute; top: 1px; left: 1px; width: 10px; height: 10px; background: var(--ink); transition: transform .18s ease, background .18s ease; }
+  .switch[aria-checked="true"] { background: var(--ink); }
+  .switch[aria-checked="true"]::after { transform: translateX(14px); background: var(--pink); }
+
+  [data-theme="dark"] .flowchart svg .node { fill: #18181b !important; stroke: #f5c3cd !important; }
+  [data-theme="dark"] .flowchart svg .node-fail { fill: #18181b !important; stroke: #ff8a94 !important; }
+  [data-theme="dark"] .flowchart svg .node-win  { fill: #f5c3cd !important; stroke: #f5c3cd !important; }
+  [data-theme="dark"] .flowchart svg .node-final { fill: #ff8a94 !important; stroke: #ff8a94 !important; }
+  [data-theme="dark"] .flowchart svg .t { fill: #f5c3cd !important; }
+  [data-theme="dark"] .flowchart svg .t-fail { fill: #ff8a94 !important; }
+  [data-theme="dark"] .flowchart svg .t-win { fill: #0e0e10 !important; }
+  [data-theme="dark"] .flowchart svg .t-final { fill: #0e0e10 !important; }
+  [data-theme="dark"] .flowchart svg .t-label { fill: #d9a9b4 !important; }
+  [data-theme="dark"] .flowchart svg .t-label-fail { fill: #ff8a94 !important; }
+  [data-theme="dark"] .flowchart svg .edge { stroke: #f5c3cd !important; }
+  [data-theme="dark"] .flowchart svg .edge-fail { stroke: #ff8a94 !important; }
+  [data-theme="dark"] .flowchart svg marker#arrow path { fill: #f5c3cd !important; }
+  [data-theme="dark"] .flowchart svg marker#arrow-red path { fill: #ff8a94 !important; }
+  [data-theme="dark"] .flowchart svg text[fill="#fff"] { fill: #0e0e10 !important; }
+  [data-theme="dark"] .flowchart svg text[fill="#f5c3cd"] { fill: #0e0e10 !important; }
+  [data-theme="dark"] .flowchart svg text[fill="#c8352e"] { fill: #ff8a94 !important; }
+  [data-theme="dark"] .cli__item.done .cli__box::after { border-color: #0e0e10; }
+
+  /* Immersive transmission intro */
+  html.intro-locked, html.intro-locked body { overflow: hidden; height: 100vh; }
+
+  .transmission {
+    position: fixed; inset: 0; z-index: 100;
+    background: #000;
+    display: flex; flex-direction: column; justify-content: space-between;
+    padding: 24px 28px;
+    opacity: 1;
+    transition: opacity .9s ease, visibility 0s linear 0s;
+  }
+  .transmission.is-dismissed {
+    opacity: 0; visibility: hidden; pointer-events: none;
+    transition: opacity .9s ease, visibility 0s linear .9s;
+  }
+
+  .transmission::before,
+  .transmission::after {
+    content: ''; position: absolute; left: 0; right: 0; height: 90px;
+    pointer-events: none;
+    background: linear-gradient(to bottom, rgba(0,0,0,.85), rgba(0,0,0,0));
+  }
+  .transmission::before { top: 0; }
+  .transmission::after { bottom: 0; transform: scaleY(-1); }
+
+  /* Scanline overlay */
+  .transmission__scan {
+    position: absolute; inset: 0; pointer-events: none; z-index: 5;
+    background: repeating-linear-gradient(
+      to bottom,
+      rgba(245,195,205,0) 0,
+      rgba(245,195,205,0) 2px,
+      rgba(245,195,205,.035) 3px,
+      rgba(245,195,205,0) 4px
+    );
+    mix-blend-mode: screen;
+  }
+  .transmission__vignette {
+    position: absolute; inset: 0; pointer-events: none; z-index: 4;
+    background: radial-gradient(ellipse at center, rgba(0,0,0,0) 40%, rgba(0,0,0,.65) 100%);
+  }
+
+  .xm__top {
+    position: relative; z-index: 10;
+    display: flex; justify-content: space-between; align-items: center;
+    color: var(--pink); gap: 24px; flex-wrap: wrap;
+  }
+  .xm__top .dot { display:inline-block; width:6px; height:6px; border-radius:50%; background: var(--pink); margin-right:8px; vertical-align:middle; animation: blink 1.6s ease-in-out infinite; }
+  .xm__top .caps-sm { color: var(--pink); }
+  .xm__channel { color: rgba(245,195,205,.6); }
+
+  .xm__stage {
+    position: relative; z-index: 10;
+    flex: 1 1 auto; min-height: 0;
+    display: flex; align-items: center; justify-content: center;
+    padding: 12px 0 64px;
+  }
+
+  .xm__frame {
+    position: relative;
+    width: min(1080px, 92vw);
+    aspect-ratio: 16 / 9;
+    max-height: calc(100vh - 420px);
+    background: #0a0a0c;
+    --pulse-ring: 1px;
+    --pulse-glow: 120px;
+    --pulse-ring-alpha: .28;
+    --pulse-glow-alpha: .08;
+    box-shadow:
+      0 0 0 var(--pulse-ring) rgba(245,195,205,var(--pulse-ring-alpha)),
+      0 0 0 8px rgba(0,0,0,.6),
+      0 0 var(--pulse-glow) rgba(245,195,205,var(--pulse-glow-alpha));
+  }
+  /* ~112 BPM = 2.143s per 4-beat bar. Pulse ring + glow to that cadence. */
+  .transmission.is-playing:not(.is-dismissed) .xm__frame {
+    animation: frame-pulse 2143ms linear infinite;
+  }
+  .transmission.is-playing:not(.is-dismissed) .xm__frame > .corner,
+  .transmission.is-playing:not(.is-dismissed) .xm__frame::before,
+  .transmission.is-playing:not(.is-dismissed) .xm__frame::after {
+    animation: corner-pulse 2143ms linear infinite;
+  }
+  @keyframes frame-pulse {
+    /* beat 1 — downbeat, strongest */
+    0%   { box-shadow: 0 0 0 2px rgba(245,195,205,.70), 0 0 0 8px rgba(0,0,0,.6), 0 0 200px rgba(245,195,205,.35); }
+    7%   { box-shadow: 0 0 0 1px rgba(245,195,205,.28), 0 0 0 8px rgba(0,0,0,.6), 0 0 120px rgba(245,195,205,.10); }
+    /* beat 2 */
+    25%  { box-shadow: 0 0 0 1px rgba(245,195,205,.28), 0 0 0 8px rgba(0,0,0,.6), 0 0 120px rgba(245,195,205,.10); }
+    28%  { box-shadow: 0 0 0 1.5px rgba(245,195,205,.45), 0 0 0 8px rgba(0,0,0,.6), 0 0 150px rgba(245,195,205,.18); }
+    33%  { box-shadow: 0 0 0 1px rgba(245,195,205,.28), 0 0 0 8px rgba(0,0,0,.6), 0 0 120px rgba(245,195,205,.10); }
+    /* beat 3 — accent */
+    50%  { box-shadow: 0 0 0 1px rgba(245,195,205,.28), 0 0 0 8px rgba(0,0,0,.6), 0 0 120px rgba(245,195,205,.10); }
+    53%  { box-shadow: 0 0 0 1.8px rgba(245,195,205,.55), 0 0 0 8px rgba(0,0,0,.6), 0 0 170px rgba(245,195,205,.25); }
+    58%  { box-shadow: 0 0 0 1px rgba(245,195,205,.28), 0 0 0 8px rgba(0,0,0,.6), 0 0 120px rgba(245,195,205,.10); }
+    /* beat 4 */
+    75%  { box-shadow: 0 0 0 1px rgba(245,195,205,.28), 0 0 0 8px rgba(0,0,0,.6), 0 0 120px rgba(245,195,205,.10); }
+    78%  { box-shadow: 0 0 0 1.5px rgba(245,195,205,.45), 0 0 0 8px rgba(0,0,0,.6), 0 0 150px rgba(245,195,205,.18); }
+    83%  { box-shadow: 0 0 0 1px rgba(245,195,205,.28), 0 0 0 8px rgba(0,0,0,.6), 0 0 120px rgba(245,195,205,.10); }
+    100% { box-shadow: 0 0 0 2px rgba(245,195,205,.70), 0 0 0 8px rgba(0,0,0,.6), 0 0 200px rgba(245,195,205,.35); }
+  }
+  @keyframes corner-pulse {
+    0%, 100% { border-color: rgba(245,195,205,1); transform: scale(1); }
+    7%       { border-color: rgba(245,195,205,1); transform: scale(1.3); }
+    20%      { border-color: rgba(245,195,205,.7); transform: scale(1); }
+    50%      { border-color: rgba(245,195,205,.85); transform: scale(1.12); }
+    70%      { border-color: rgba(245,195,205,.7); transform: scale(1); }
+  }
+  .xm__frame > .corner.bl { transform-origin: bottom left; }
+  .xm__frame > .corner.br { transform-origin: bottom right; }
+  .xm__frame::before { transform-origin: top left; }
+  .xm__frame::after  { transform-origin: top right; }
+
+  @media (prefers-reduced-motion: reduce) {
+    .transmission.is-playing:not(.is-dismissed) .xm__frame,
+    .transmission.is-playing:not(.is-dismissed) .xm__frame > .corner,
+    .transmission.is-playing:not(.is-dismissed) .xm__frame::before,
+    .transmission.is-playing:not(.is-dismissed) .xm__frame::after { animation: none; }
+  }
+  .xm__frame::before,
+  .xm__frame::after,
+  .xm__frame > .corner {
+    content: ''; position: absolute; width: 18px; height: 18px;
+    border: 1.5px solid var(--pink); z-index: 11;
+  }
+  .xm__frame::before { top: -2px; left: -2px; border-right: 0; border-bottom: 0; }
+  .xm__frame::after  { top: -2px; right: -2px; border-left: 0; border-bottom: 0; }
+  .xm__frame > .corner.bl { bottom: -2px; left: -2px; border-right: 0; border-top: 0; }
+  .xm__frame > .corner.br { bottom: -2px; right: -2px; border-left: 0; border-top: 0; }
+
+  .xm__frame iframe,
+  .xm__frame #xm-player {
+    position: absolute; inset: 0; width: 100%; height: 100%; border: 0; display: block;
+  }
+
+  .xm__caption {
+    position: absolute; left: 0; right: 0; bottom: -40px;
+    display: flex; justify-content: space-between; align-items: baseline;
+    color: rgba(245,195,205,.7); gap: 16px;
+    padding-top: 12px;
+    border-top: 1px solid rgba(245,195,205,.14);
+  }
+  .xm__caption em { font-family: var(--serif); font-style: italic; font-weight: 400; font-size: 14px; letter-spacing: 0; text-transform: none; color: var(--pink); }
+
+  .xm__bottom {
+    position: relative; z-index: 10;
+    display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; gap: 18px 24px;
+    padding-top: 16px;
+  }
+  .xm__title {
+    grid-column: 1 / -1;
+    text-align: center;
+    margin: 0 0 6px;
+    display: flex; flex-direction: column; align-items: center; gap: 6px;
+  }
+  .xm__title .eyebrow {
+    font-family: var(--mono); font-size: 10px; letter-spacing: .32em; text-transform: uppercase; font-weight: 500;
+    color: rgba(245,195,205,.55);
+    display: inline-flex; align-items: center; gap: 14px;
+  }
+  .xm__title .eyebrow::before,
+  .xm__title .eyebrow::after {
+    content: ''; display: inline-block; width: 28px; height: 1px; background: rgba(245,195,205,.35);
+  }
+  .xm__headline {
+    font-family: var(--serif); font-weight: 900;
+    font-size: clamp(32px, 4.6vw, 58px); line-height: .95;
+    letter-spacing: -.025em; margin: 0;
+    color: var(--pink);
+    font-variation-settings: "opsz" 144, "SOFT" 30, "WONK" 0;
+  }
+  .xm__headline em { font-style: italic; font-weight: 400; font-variation-settings: "opsz" 144, "SOFT" 100, "WONK" 1; color: #fff; }
+  .xm__headline .colon { font-style: italic; font-weight: 400; color: #fff; font-variation-settings: "opsz" 144, "SOFT" 100, "WONK" 1; }
+  .xm__tag {
+    font-family: var(--serif); font-style: italic; font-weight: 300;
+    font-size: clamp(13px, 1.1vw, 15px);
+    color: rgba(245,195,205,.62);
+    margin: 0; letter-spacing: -.005em;
+    max-width: 62ch;
+  }
+
+  .xm__controls {
+    grid-column: 1 / 2;
+    display: flex; gap: 10px; justify-self: start; align-items: center;
+  }
+  .xm__actions {
+    grid-column: 3 / 4;
+    display: flex; gap: 10px; justify-self: end;
+  }
+
+  .xm__btn {
+    font-family: var(--mono); font-size: 10px; letter-spacing: .22em; text-transform: uppercase; font-weight: 500;
+    background: transparent; color: var(--pink); border: 1px solid rgba(245,195,205,.45);
+    padding: 10px 14px; cursor: pointer;
+    transition: background .2s ease, color .2s ease, border-color .2s ease;
+  }
+  .xm__btn:hover { background: var(--pink); color: #000; border-color: var(--pink); }
+  .xm__btn:focus-visible { outline: 2px solid var(--pink); outline-offset: 3px; }
+
+  .xm__btn--primary {
+    grid-column: 2 / 3; justify-self: center;
+    background: var(--pink); color: #000; border-color: var(--pink);
+    padding: 14px 22px; font-size: 11px;
+    display: inline-flex; align-items: center; gap: 10px;
+  }
+  .xm__btn--primary:hover { background: transparent; color: var(--pink); }
+  .xm__btn--primary .arrow { display: inline-block; width: 22px; height: 1px; background: currentColor; position: relative; }
+  .xm__btn--primary .arrow::after { content: ''; position: absolute; right: 0; top: -3px; width: 7px; height: 7px; border-top: 1px solid currentColor; border-right: 1px solid currentColor; transform: rotate(45deg); }
+
+  /* Replay handle — floats bottom-left after dismissal */
+  .replay-handle {
+    position: fixed; left: 20px; bottom: 20px; z-index: 90;
+    background: var(--ink); color: var(--pink);
+    border: 1px solid var(--ink);
+    font-family: var(--mono); font-size: 10px; letter-spacing: .22em; text-transform: uppercase; font-weight: 500;
+    padding: 10px 14px; cursor: pointer;
+    transform: translateY(8px); opacity: 0; pointer-events: none;
+    transition: opacity .4s ease .2s, transform .4s ease .2s, background .2s ease, color .2s ease;
+  }
+  .replay-handle.is-ready { opacity: 1; pointer-events: auto; transform: translateY(0); }
+  .replay-handle:hover { background: var(--pink); color: var(--ink); }
+  .replay-handle .dot { display:inline-block; width:6px; height:6px; border-radius:50%; background: currentColor; margin-right:8px; vertical-align:middle; }
+
+  @media (max-width: 860px) {
+    .xm__bottom { grid-template-columns: 1fr; }
+    .xm__controls, .xm__actions, .xm__btn--primary { grid-column: 1 / -1; justify-self: stretch; }
+    .xm__controls, .xm__actions { justify-content: center; flex-wrap: wrap; }
+    .xm__caption { position: static; padding-top: 12px; flex-direction: column; gap: 4px; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .transmission, .transmission.is-dismissed { transition: opacity .2s ease; }
+    .classification .dot, .xm__top .dot { animation: none; }
+  }
+
+  @media (max-width: 860px) {
+    .section__head { grid-template-columns: 1fr; gap: 8px; }
+    .brief { grid-template-columns: 1fr; gap: 32px; }
+    .roster { grid-template-columns: repeat(2, 1fr); }
+    .countdown { grid-template-columns: repeat(2, 1fr); }
+    .cd__cell:nth-child(2) { border-right: 0; }
+    .cd__cell:nth-child(1), .cd__cell:nth-child(2) { border-bottom: 1px solid var(--ink); }
+    .cli { grid-template-columns: 100px 1fr; }
+    .cli__count { display: none; }
+    .risk-table thead { display: none; }
+    .risk-table, .risk-table tbody, .risk-table tr, .risk-table td { display: block; width: 100%; }
+    .risk-table tr { padding: 18px; border-bottom: 1px solid var(--rule); }
+    .risk-table td { border: 0; padding: 4px 0; }
+    .risk-table td::before { content: attr(data-label); display: inline-block; width: 110px; color: var(--ink-2); font-family: var(--mono); font-size: 10px; letter-spacing: .18em; text-transform: uppercase; }
+  }
+</style>
+</head>
+<body>
+
+<div class="transmission" id="transmission" role="dialog" aria-modal="true" aria-labelledby="xm-title">
+  <div class="transmission__vignette" aria-hidden="true"></div>
+  <div class="transmission__scan" aria-hidden="true"></div>
+
+  <div class="xm__top caps-sm">
+    <span><span class="dot"></span>Incoming Transmission &nbsp;//&nbsp; Source Verified</span>
+    <span class="xm__channel">Channel 24.7 · FM-WRLD · Bieber Ops Frequency</span>
+  </div>
+
+  <div class="xm__stage">
+    <div class="xm__frame">
+      <span class="corner bl" aria-hidden="true"></span>
+      <span class="corner br" aria-hidden="true"></span>
+      <div id="xm-player"></div>
+      <div class="xm__caption caps-sm">
+        <span>Exhibit A &nbsp;/&nbsp; Pre-Mission Morale Artifact</span>
+        <em>— The subject, in his own voice.</em>
+      </div>
+    </div>
+  </div>
+
+  <div class="xm__bottom">
+    <div class="xm__title" id="xm-title">
+      <span class="eyebrow">Subject · Observation Window</span>
+      <h2 class="xm__headline">Operation<span class="colon">:</span> Bieber <em>Drop</em></h2>
+      <p class="xm__tag">Before proceeding to tactical briefing, observe the target.</p>
+    </div>
+    <div class="xm__controls caps-sm">
+      <button class="xm__btn" id="btn-mute" type="button" aria-pressed="true">Unmute</button>
+      <button class="xm__btn" id="btn-pause" type="button" aria-pressed="false">Pause</button>
+    </div>
+    <button class="xm__btn xm__btn--primary" id="btn-enter" type="button">
+      Enter Briefing <span class="arrow" aria-hidden="true"></span>
+    </button>
+    <div class="xm__actions caps-sm">
+      <button class="xm__btn" id="btn-skip" type="button">Skip</button>
+    </div>
+  </div>
+</div>
+
+<button class="replay-handle" id="btn-replay" type="button" aria-label="Replay incoming transmission">
+  <span class="dot"></span>Replay Transmission
+</button>
+
+<div class="classification caps-sm">
+  <span><span class="dot"></span>Classified &nbsp;//&nbsp; Belieber Eyes Only</span>
+  <span>Document 001 &nbsp;/&nbsp; Revision B</span>
+</div>
+
+<div class="page">
+
+  <div class="caps" style="display:flex; justify-content:space-between; padding-bottom:20px; color:var(--ink-2);">
+    <span>Tactical Briefing</span>
+    <span>Issue Nº 001 — Spring 2026</span>
+    <span>For Internal Review</span>
+  </div>
+
+  <section class="hero">
+    <div class="hero__meta caps" style="color:var(--ink-2);">
+      <span>Subject &nbsp;/&nbsp; <span style="color:var(--ink);">SWAG III US Tour Onsale · SF · Chicago · Austin</span></span>
+      <span>Prepared by Agent K-01 · Autonomous Squad</span>
+    </div>
+
+    <h1 class="hero__title">
+      Operation<span class="hero__colon">:</span><br>
+      Bieber&nbsp;<em>Drop</em>
+    </h1>
+
+    <p class="hero__sub">A tactical briefing, prepared by four autonomous agents in advance of the onsale window.</p>
+
+    <div class="countdown" role="timer">
+      <div class="cd__cell"><span class="cd__num" id="cd-d">00</span><span class="caps cd__label">Days</span></div>
+      <div class="cd__cell"><span class="cd__num" id="cd-h">00</span><span class="caps cd__label">Hours</span></div>
+      <div class="cd__cell"><span class="cd__num" id="cd-m">00</span><span class="caps cd__label">Minutes</span></div>
+      <div class="cd__cell"><span class="cd__num" id="cd-s">00</span><span class="caps cd__label">Seconds</span></div>
+    </div>
+    <div class="cd__caption caps-sm">
+      <span>Target &nbsp;/&nbsp; Friday · 10:00 AM PT</span>
+      <span id="cd-target">—</span>
+    </div>
+  </section>
+
+  <section class="section" id="s-brief">
+    <div class="section__head">
+      <div class="caps section__num">§ 01 &nbsp;· Mission Brief</div>
+      <h2 class="section__title">The <em>situation</em>, stated plainly.</h2>
+    </div>
+
+    <div class="brief">
+      <div class="brief__prose">
+        <p class="drop-cap">At ten hundred hours Pacific on Friday, Ticketmaster will release general inventory for the SWAG III US Tour — three target markets in priority order: San Francisco, Chicago, Austin. Historical data from prior Biebs onsales indicates sub-three-percent success at the main drop. We therefore prepare.</p>
+        <p>This document enumerates the four autonomous agents assigned to the operation, their failure modes, their mitigations, and a minute-accurate pre-flight sequence from <em>T-minus twenty-four hours</em> through post-event recovery. No humans will be queuing. Humans have jobs.</p>
+        <p>The objective is Biebs, in person, seated. Compliance is voluntary. Biebs is non-negotiable.</p>
+      </div>
+
+      <aside aria-label="Success probability" style="height: 500px" class="stats">
+        <div class="stat-row">
+          <div class="stat-row__label">
+            <div class="caps" style="color: rgb(0, 0, 0); margin-bottom:6px;">P(Front Row)</div>
+            <div style="font-style:italic; font-size:15px; color:var(--ink-2);">Close enough to confirm eye contact</div>
+          </div>
+          <div class="stat-row__value">0.04<em>%</em></div>
+        </div>
+        <div class="stat-row">
+          <div class="stat-row__label">
+            <div class="caps" style="color: rgb(0, 0, 0); margin-bottom:6px;">P(One Less Lonely Girl)</div>
+            <div style="font-style:italic; font-size:15px; color:var(--ink-2);">Pulled on stage, serenaded, life altered</div>
+          </div>
+          <div class="stat-row__value">0.0007<em>%</em></div>
+        </div>
+        <div class="stat-row">
+          <div class="stat-row__label">
+            <div class="caps" style="color: rgb(0, 0, 0); margin-bottom:6px;">P(Hailey Waves Back)</div>
+            <div style="font-style:italic; font-size:15px; color:var(--ink-2);">From the wings · unsolicited · mutual</div>
+          </div>
+          <div class="stat-row__value">0.00<em>%</em></div>
+        </div>
+      </aside>
+    </div>
+  </section>
+
+  <section class="section" id="s-roster">
+    <div class="section__head">
+      <div class="caps section__num">§ 02 &nbsp;· Agent Roster</div>
+      <h2 class="section__title">Four <em>agents</em>. Zero humans in queue.</h2>
+    </div>
+
+    <p style="max-width:60ch; font-family:var(--serif); font-style:italic; font-weight:300; font-size:18px; line-height:1.5; color:var(--ink-2); margin:-20px 0 36px;">All four operators are autonomous agents, each with scoped permissions, separate Ticketmaster sessions, and a narrow mandate. None of them sleep. None of them need the bathroom. None of them are emotionally attached to the outcome — though Agent J-04 may simulate it convincingly.</p>
+
+    <div class="roster">
+      <article class="member" data-status="go">
+        <div class="member__top caps-sm"><span>Agent 01</span><span class="member__status"><span class="member__dot"></span>Primary · Go</span></div>
+        <h3 class="member__name"><em>kidrauhl</em></h3>
+        <p class="member__role">Primary queue agent. Deep-cover handle since the YouTube era. Executes the SF main drop on hard-wired node. Holds the card, the confidence, the Biebs love.</p>
+        <div class="member__foot caps-sm"><span>Target</span><span style="color:var(--ink);">San Francisco</span></div>
+      </article>
+
+      <article class="member" data-status="standby">
+        <div class="member__top caps-sm"><span>Agent 02</span><span class="member__status"><span class="member__dot"></span>Backup · Standby</span></div>
+        <h3 class="member__name">JB</h3>
+        <p class="member__role">Verified Fan backup agent. Holds the presale code in a separate browser profile. Target market two: Chicago. Activates on Agent 01 failure.</p>
+        <div class="member__foot caps-sm"><span>Target</span><span style="color:var(--ink);">Chicago</span></div>
+      </article>
+
+      <article class="member" data-status="remote">
+        <div class="member__top caps-sm"><span>Agent 03</span><span class="member__status"><span class="member__dot"></span>Tertiary · Remote</span></div>
+        <h3 class="member__name">Oscar</h3>
+        <p class="member__role">Tertiary market agent. Target three: Austin. Monitors StubHub, Vivid, and grey-market listings in parallel. Pre-authorized up to Biebs Ceiling. Takes no grief.</p>
+        <div class="member__foot caps-sm"><span>Target</span><span style="color:var(--ink);">Austin</span></div>
+      </article>
+
+      <article class="member" data-status="go">
+        <div class="member__top caps-sm"><span>Agent 04</span><span class="member__status"><span class="member__dot"></span>Comms · Active</span></div>
+        <h3 class="member__name"><em>Piggy</em></h3>
+        <p class="member__role">Morale and comms agent. Routes status between the three-city front, filters noise, posts Biebs lore to the group channel. Keeps spirits structurally intact.</p>
+        <div class="member__foot caps-sm"><span>Node</span><span style="color:var(--ink);">HQ</span></div>
+      </article>
+    </div>
+  </section>
+
+  <section class="section" id="s-tree">
+    <div class="section__head">
+      <div class="caps section__num">§ 03 &nbsp;· Decision Tree</div>
+      <h2 class="section__title">The <em>failure cascade</em>.</h2>
+    </div>
+
+    <div class="flowchart">
+      <svg viewBox="0 0 1000 640" role="img" aria-label="Decision tree flowchart">
+        <defs>
+          <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#0e0e10"/></marker>
+          <marker id="arrow-red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#c8352e"/></marker>
+        </defs>
+        <style>
+          .node { fill: #fbf6f0; stroke: #0e0e10; stroke-width: 1.5; }
+          .node-fail { fill: #fff; stroke: #c8352e; stroke-width: 1.5; }
+          .node-win  { fill: #0e0e10; stroke: #0e0e10; }
+          .node-final { fill: #c8352e; stroke: #c8352e; }
+          .t { font-family: 'Fraunces', serif; font-size: 15px; font-weight: 600; fill: #0e0e10; }
+          .t-fail { font-family: 'Fraunces', serif; font-size: 14px; font-weight: 500; fill: #c8352e; }
+          .t-win  { font-family: 'Fraunces', serif; font-size: 15px; font-weight: 700; fill: #f5c3cd; }
+          .t-final { font-family: 'Fraunces', serif; font-size: 16px; font-weight: 800; fill: #fff; font-style: italic; }
+          .t-label { font-family: 'JetBrains Mono', monospace; font-size: 9px; letter-spacing: 0.14em; text-transform: uppercase; fill: #2a2a2e; }
+          .t-label-fail { font-family: 'JetBrains Mono', monospace; font-size: 9px; letter-spacing: 0.14em; text-transform: uppercase; fill: #c8352e; }
+          .edge { stroke: #0e0e10; stroke-width: 1.5; fill: none; }
+          .edge-fail { stroke: #c8352e; stroke-width: 1.5; stroke-dasharray: 4 3; fill: none; }
+        </style>
+
+        <g><rect class="node" x="400" y="20" width="200" height="56"/><text class="t" x="500" y="45" text-anchor="middle">SF Presale</text><text class="t-label" x="500" y="62" text-anchor="middle">Agent 01 · kidrauhl · T-1h</text></g>
+        <path class="edge" d="M500 76 L500 120" marker-end="url(#arrow)"/>
+        <text class="t-label" x="510" y="100">Code Accepted</text>
+        <path class="edge-fail" d="M400 48 L220 48 L220 130" marker-end="url(#arrow-red)"/>
+        <text class="t-label-fail" x="228" y="40">SF sold out</text>
+
+        <g><rect class="node" x="400" y="120" width="200" height="56"/><text class="t" x="500" y="145" text-anchor="middle">SF Main Drop</text><text class="t-label" x="500" y="162" text-anchor="middle">10:00 AM PT · Agent 01</text></g>
+        <path class="edge" d="M500 176 L500 220" marker-end="url(#arrow)"/>
+        <text class="t-label" x="510" y="200">Checkout OK</text>
+
+        <path class="edge-fail" d="M600 148 L780 148 L780 230" marker-end="url(#arrow-red)"/>
+        <text class="t-label-fail" x="610" y="140">SF fails · pivot</text>
+        <g><rect class="node-fail" x="690" y="230" width="180" height="52"/><text class="t-fail" x="780" y="255" text-anchor="middle">Chicago Drop</text><text class="t-label" x="780" y="271" text-anchor="middle">Agent 02 · JB takes over</text></g>
+
+        <g><rect class="node-fail" x="130" y="130" width="180" height="52"/><text class="t-fail" x="220" y="155" text-anchor="middle">Agent 02 · JB Activates</text><text class="t-label-fail" x="220" y="171" text-anchor="middle">Chicago node primary</text></g>
+        <path class="edge-fail" d="M310 156 L400 156" marker-end="url(#arrow-red)"/>
+
+        <g><rect class="node-win" x="400" y="220" width="200" height="56"/><text class="t-win" x="500" y="245" text-anchor="middle">BIEBS ACQUIRED · SF</text><text class="t-label" x="500" y="262" text-anchor="middle" fill="#f5c3cd">Stand Down · Celebrate</text></g>
+
+        <path class="edge-fail" d="M780 282 L780 330" marker-end="url(#arrow-red)"/>
+        <text class="t-label-fail" x="790" y="310">Chicago fails</text>
+        <g><rect class="node-fail" x="690" y="330" width="180" height="52"/><text class="t-fail" x="780" y="355" text-anchor="middle">Austin Drop</text><text class="t-label" x="780" y="371" text-anchor="middle">Agent 03 · Oscar pivots</text></g>
+
+        <path class="edge-fail" d="M780 382 L780 430" marker-end="url(#arrow-red)"/>
+        <text class="t-label-fail" x="790" y="410">Austin fails</text>
+        <g><rect class="node" x="690" y="430" width="180" height="52"/><text class="t" x="780" y="455" text-anchor="middle">Resale Market</text><text class="t-label" x="780" y="471" text-anchor="middle">Agent 03 · Oscar bids to ceiling</text></g>
+
+        <path class="edge-fail" d="M690 456 L500 456 L500 500" marker-end="url(#arrow-red)"/>
+        <g><rect class="node-final" x="380" y="500" width="240" height="72"/><text class="t-final" x="500" y="532" text-anchor="middle">Signal Fire</text><text class="t-label" x="500" y="551" text-anchor="middle" fill="#fff">All Agents · Emergency Brief</text><text class="t-label" x="500" y="564" text-anchor="middle" fill="#fff">T-Plus Protocol Engaged</text></g>
+
+        <g transform="translate(40, 595)">
+          <rect x="0" y="0" width="14" height="14" class="node"/><text class="t-label" x="22" y="11">Standard Node</text>
+          <rect x="150" y="0" width="14" height="14" class="node-fail"/><text class="t-label-fail" x="172" y="11">Pivot / Failure</text>
+          <rect x="300" y="0" width="14" height="14" class="node-win"/><text class="t-label" x="322" y="11">Terminal · Success</text>
+          <rect x="490" y="0" width="14" height="14" class="node-final"/><text class="t-label" x="512" y="11" fill="#c8352e">Terminal · Escalation</text>
+        </g>
+      </svg>
+
+      <div class="flowchart__legend caps-sm">
+        <span class="legend-item"><span class="legend-swatch"></span>Primary Path</span>
+        <span class="legend-item"><span class="legend-swatch fail"></span>Pivot / Failure Branch</span>
+        <span class="legend-item">SF → Chicago → Austin → Resale → Signal Fire. Proceed only on success.</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="s-risk">
+    <div class="section__head">
+      <div class="caps section__num">§ 04 &nbsp;· Risk Register</div>
+      <h2 class="section__title">Eight <em>threats</em>, rank-ordered.</h2>
+    </div>
+    <table class="risk-table">
+      <thead class="caps-sm"><tr><th style="width:38%;">Risk</th><th style="width:12%;">Likelihood</th><th style="width:12%;">Impact</th><th>Mitigation</th></tr></thead>
+      <tbody>
+        <tr><td data-label="Risk"><div class="risk-name">Wi-Fi drops mid-queue</div></td><td data-label="Likelihood"><span class="pill pill--hi">High</span></td><td data-label="Impact"><span class="pill pill--hi">High</span></td><td data-label="Mitigation"><div class="mitigation">Hard-wired ethernet at each node. Mobile hotspot on secondary device. Agent 02 (JB) in Chicago as live failover to Agent 01 (kidrauhl) in SF.</div></td></tr>
+        <tr><td data-label="Risk"><div class="risk-name">SF onsale sells out in under 90 seconds</div></td><td data-label="Likelihood"><span class="pill pill--hi">High</span></td><td data-label="Impact"><span class="pill pill--hi">High</span></td><td data-label="Mitigation"><div class="mitigation">Pivot to Chicago (Agent 02 · JB) immediately on "no inventory" response. Austin (Agent 03 · Oscar) stays warm.</div></td></tr>
+        <tr><td data-label="Risk"><div class="risk-name">Captcha asks about traffic lights</div></td><td data-label="Likelihood"><span class="pill pill--hi">High</span></td><td data-label="Impact"><span class="pill pill--md">Medium</span></td><td data-label="Mitigation"><div class="mitigation">Agents solve with vision model fallback. Motorcycles are vehicles. Crosswalks are not sidewalks.</div></td></tr>
+        <tr><td data-label="Risk"><div class="risk-name">Queue position exceeds 50,000 in all three cities</div></td><td data-label="Likelihood"><span class="pill pill--md">Medium</span></td><td data-label="Impact"><span class="pill pill--hi">High</span></td><td data-label="Mitigation"><div class="mitigation">Accept reality. Hold queue positions. Agent 03 (Oscar) shifts to resale prep. Agent 04 (Piggy) posts calming Biebs lore to group channel.</div></td></tr>
+        <tr><td data-label="Risk"><div class="risk-name">Dynamic pricing hits $4,200 / seat</div></td><td data-label="Likelihood"><span class="pill pill--md">Medium</span></td><td data-label="Impact"><span class="pill pill--crit">Critical</span></td><td data-label="Mitigation"><div class="mitigation">Hard ceiling at $850 per seat, GA tier. If exceeded in all three cities, abort to resale and re-evaluate at T+48h.</div></td></tr>
+        <tr><td data-label="Risk"><div class="risk-name">Bot detection flag on any agent</div></td><td data-label="Likelihood"><span class="pill pill--md">Medium</span></td><td data-label="Impact"><span class="pill pill--hi">High</span></td><td data-label="Mitigation"><div class="mitigation">Clear session. Relaunch on fresh browser profile and residential IP. Other two agents continue uninterrupted.</div></td></tr>
+        <tr><td data-label="Risk"><div class="risk-name">2FA code expires before entry</div></td><td data-label="Likelihood"><span class="pill pill--md">Medium</span></td><td data-label="Impact"><span class="pill pill--md">Medium</span></td><td data-label="Mitigation"><div class="mitigation">Agents request new code at most once per cycle. Phone numbers verified on all three agent accounts at T-24h.</div></td></tr>
+        <tr><td data-label="Risk"><div class="risk-name">Generic "something went wrong" page</div></td><td data-label="Likelihood"><span class="pill pill--hi">High</span></td><td data-label="Impact"><span class="pill pill--crit">Critical</span></td><td data-label="Mitigation"><div class="mitigation">Do not refresh. Wait sixty seconds. Check order history in a new tab. Other agents hold position. Accept the unknown.</div></td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section class="section" id="s-checklist">
+    <div class="section__head">
+      <div class="caps section__num">§ 05 &nbsp;· Pre-Flight Checklist</div>
+      <h2 class="section__title">T-minus <em>timeline</em>.</h2>
+    </div>
+    <div class="checklist">
+      <div class="cli">
+        <div class="cli__t">T–<em>24h</em></div>
+        <div class="cli__items">
+          <label class="cli__item"><span class="cli__box"></span><span class="cli__text">Verify Ticketmaster sessions on all four agent nodes across SF / Chicago / Austin markets</span></label>
+          <label class="cli__item"><span class="cli__box"></span><span class="cli__text">Confirm payment method on each agent account; update expiration if needed</span></label>
+          <label class="cli__item"><span class="cli__box"></span><span class="cli__text">Brief Agent 02 (JB) on Chicago presale code handoff; Agent 03 (Oscar) on Austin failover</span></label>
+          <label class="cli__item"><span class="cli__box"></span><span class="cli__text">Agent 04 (Piggy) loads Biebs discography into comms channel</span></label>
+        </div>
+        <div class="cli__count" data-count>0 / 4</div>
+      </div>
+      <div class="cli">
+        <div class="cli__t">T–<em>6h</em></div>
+        <div class="cli__items">
+          <label class="cli__item"><span class="cli__box"></span><span class="cli__text">Warm residential proxies for SF / Chicago / Austin IPs</span></label>
+          <label class="cli__item"><span class="cli__box"></span><span class="cli__text">Disable all browser extensions except password manager on each agent</span></label>
+          <label class="cli__item"><span class="cli__box"></span><span class="cli__text">Pre-enter billing; verify autofill off across all three sessions</span></label>
+        </div>
+        <div class="cli__count" data-count>0 / 3</div>
+      </div>
+      <div class="cli">
+        <div class="cli__t">T–<em>1h</em></div>
+        <div class="cli__items">
+          <label class="cli__item"><span class="cli__box"></span><span class="cli__text">All agents on comms channel. Heartbeat check.</span></label>
+          <label class="cli__item"><span class="cli__box"></span><span class="cli__text">Load queue page on all three markets. Do not refresh unprompted.</span></label>
+          <label class="cli__item"><span class="cli__box"></span><span class="cli__text">Humans: stand down. Agents have it from here.</span></label>
+        </div>
+        <div class="cli__count" data-count>0 / 3</div>
+      </div>
+      <div class="cli">
+        <div class="cli__t">T–<em>15m</em></div>
+        <div class="cli__items">
+          <label class="cli__item"><span class="cli__box"></span><span class="cli__text">All four agent sessions authenticated and warm across three cities</span></label>
+          <label class="cli__item"><span class="cli__box"></span><span class="cli__text">Agent 03 (Oscar) confirms resale listings indexed in parallel as tertiary</span></label>
+          <label class="cli__item"><span class="cli__box"></span><span class="cli__text">Agent 04 (Piggy) queues "Baby" for post-success playback</span></label>
+        </div>
+        <div class="cli__count" data-count>0 / 3</div>
+      </div>
+      <div class="cli">
+        <div class="cli__t">T–<em>0</em></div>
+        <div class="cli__items">
+          <label class="cli__item"><span class="cli__box"></span><span class="cli__text">Agents execute. SF first, Chicago armed, Austin ready.</span></label>
+          <label class="cli__item"><span class="cli__box"></span><span class="cli__text">Each agent reports queue position to comms channel immediately</span></label>
+          <label class="cli__item"><span class="cli__box"></span><span class="cli__text">Maintain radio silence until entry or failure</span></label>
+        </div>
+        <div class="cli__count" data-count>0 / 3</div>
+      </div>
+      <div class="cli">
+        <div class="cli__t">T+<em>15m</em></div>
+        <div class="cli__items">
+          <label class="cli__item"><span class="cli__box"></span><span class="cli__text">Agents report outcome per city: Biebs secured, pivot pending, or signal fire</span></label>
+          <label class="cli__item"><span class="cli__box"></span><span class="cli__text">Agent 03 (Oscar) forwards order confirmation to shared archive</span></label>
+          <label class="cli__item"><span class="cli__box"></span><span class="cli__text">Agent 04 (Piggy) drops the Biebs celebration setlist</span></label>
+        </div>
+        <div class="cli__count" data-count>0 / 3</div>
+      </div>
+      <div class="cli">
+        <div class="cli__t">T+<em>∞</em></div>
+        <div class="cli__items">
+          <label class="cli__item"><span class="cli__box"></span><span class="cli__text">Post-mortem: log agent decision traces, tune city-priority retry logic</span></label>
+          <label class="cli__item"><span class="cli__box"></span><span class="cli__text">Thank agents. Commend kidrauhl, JB, or Oscar on clean exit.</span></label>
+          <label class="cli__item"><span class="cli__box"></span><span class="cli__text">Prepare agents for SWAG IV. Biebs never stops.</span></label>
+        </div>
+        <div class="cli__count" data-count>0 / 3</div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="foot caps-sm">
+    <span>This document is for operational planning only. It does not constitute a guarantee of outcome. Where outcomes diverge from plan, refer to § 05, T+∞.</span>
+    <span>— End of briefing —</span>
+  </footer>
+
+</div>
+
+<aside class="tweaks" id="tweaks" aria-label="Display settings">
+  <div class="tweaks__title"><span>Tweaks</span><span>●</span></div>
+  <div class="tweaks__row">
+    <span class="tweaks__label"><em>Dark</em> mode</span>
+    <button class="switch" role="switch" aria-checked="false" id="switch-dark" aria-label="Toggle dark mode"></button>
+  </div>
+</aside>
+
+<script>
+  const STORAGE_KEY = 'op-ticket-drop-tweaks';
+  const TWEAKS = (() => {
+    try {
+      const saved = localStorage.getItem(STORAGE_KEY);
+      if (saved) return JSON.parse(saved);
+    } catch (e) {}
+    return { dark: window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches };
+  })();
+
+  function applyTweaks(t) {
+    document.documentElement.setAttribute('data-theme', t.dark ? 'dark' : 'light');
+    const sw = document.getElementById('switch-dark');
+    if (sw) sw.setAttribute('aria-checked', String(!!t.dark));
+    try { localStorage.setItem(STORAGE_KEY, JSON.stringify(t)); } catch (e) {}
+  }
+  applyTweaks(TWEAKS);
+
+  document.getElementById('switch-dark').addEventListener('click', () => {
+    TWEAKS.dark = !TWEAKS.dark;
+    applyTweaks(TWEAKS);
+  });
+
+  function nextFriday10amPT() {
+    const now = new Date();
+    const nowPT = new Date(now.toLocaleString('en-US', { timeZone: 'America/Los_Angeles' }));
+    let daysAhead = (5 - nowPT.getDay() + 7) % 7;
+    const candidate = new Date(nowPT);
+    candidate.setDate(nowPT.getDate() + daysAhead);
+    candidate.setHours(10, 0, 0, 0);
+    if (daysAhead === 0 && candidate.getTime() <= nowPT.getTime()) candidate.setDate(candidate.getDate() + 7);
+    const ptString = candidate.toLocaleString('en-US', { timeZone: 'America/Los_Angeles' });
+    const asIfLocal = new Date(ptString);
+    const delta = candidate.getTime() - asIfLocal.getTime();
+    return new Date(candidate.getTime() + delta);
+  }
+  const target = nextFriday10amPT();
+  const targetLabel = document.getElementById('cd-target');
+  if (targetLabel) {
+    const opts = { weekday: 'short', month: 'short', day: 'numeric', hour: 'numeric', minute: '2-digit', timeZone: 'America/Los_Angeles', timeZoneName: 'short' };
+    targetLabel.textContent = target.toLocaleString('en-US', opts);
+  }
+  const pad = n => String(n).padStart(2, '0');
+  function tick() {
+    let ms = target.getTime() - Date.now(); if (ms < 0) ms = 0;
+    const s = Math.floor(ms / 1000);
+    document.getElementById('cd-d').textContent = pad(Math.floor(s / 86400));
+    document.getElementById('cd-h').textContent = pad(Math.floor((s % 86400) / 3600));
+    document.getElementById('cd-m').textContent = pad(Math.floor((s % 3600) / 60));
+    document.getElementById('cd-s').textContent = pad(s % 60);
+  }
+  tick(); setInterval(tick, 1000);
+
+  // Immersive transmission intro — YouTube IFrame API wiring
+  (function () {
+    const overlay = document.getElementById('transmission');
+    const btnEnter = document.getElementById('btn-enter');
+    const btnSkip = document.getElementById('btn-skip');
+    const btnReplay = document.getElementById('btn-replay');
+    const btnMute = document.getElementById('btn-mute');
+    const btnPause = document.getElementById('btn-pause');
+
+    document.documentElement.classList.add('intro-locked');
+
+    let player = null;
+    const tag = document.createElement('script');
+    tag.src = 'https://www.youtube.com/iframe_api';
+    document.head.appendChild(tag);
+
+    let playerReady = false;
+    let userWantsSound = false;
+
+    function syncMuteButton() {
+      let muted = true;
+      try { muted = player.isMuted(); } catch (e) {}
+      btnMute.textContent = muted ? 'Unmute' : 'Mute';
+      btnMute.setAttribute('aria-pressed', String(muted));
+    }
+
+    function enforceAudioPreference() {
+      if (!player || !playerReady) return;
+      try {
+        if (userWantsSound) {
+          player.setVolume(90);
+          player.unMute();
+        } else {
+          player.mute();
+        }
+      } catch (e) {}
+      syncMuteButton();
+    }
+
+    window.onYouTubeIframeAPIReady = function () {
+      player = new YT.Player('xm-player', {
+        width: '100%',
+        height: '100%',
+        videoId: 'VkbT0a0VW7c',
+        host: 'https://www.youtube.com',
+        playerVars: {
+          autoplay: 1,
+          mute: 1,
+          controls: 0,
+          rel: 0,
+          modestbranding: 1,
+          playsinline: 1,
+          origin: window.location.origin
+        },
+        events: {
+          onReady: () => {
+            playerReady = true;
+            try { player.mute(); player.setVolume(90); player.playVideo(); } catch (e) {}
+          },
+          onStateChange: (e) => {
+            if (e.data === YT.PlayerState.PLAYING) {
+              btnPause.textContent = 'Pause';
+              btnPause.setAttribute('aria-pressed', 'false');
+              overlay.classList.add('is-playing');
+              enforceAudioPreference();
+              setTimeout(enforceAudioPreference, 200);
+              setTimeout(enforceAudioPreference, 700);
+            } else if (e.data === YT.PlayerState.PAUSED) {
+              btnPause.textContent = 'Play';
+              btnPause.setAttribute('aria-pressed', 'true');
+              overlay.classList.remove('is-playing');
+            } else if (e.data === YT.PlayerState.ENDED) {
+              overlay.classList.remove('is-playing');
+              try { player.seekTo(0, true); player.playVideo(); } catch (err) {}
+            }
+          },
+          onError: (e) => { console.warn('YT player error', e && e.data); }
+        }
+      });
+    };
+
+    let watchdog = null;
+    function startWatchdog() {
+      if (watchdog) return;
+      watchdog = setInterval(() => {
+        if (!player || !playerReady) return;
+        if (overlay.classList.contains('is-dismissed')) return;
+        try {
+          const muted = player.isMuted();
+          if (userWantsSound && muted) {
+            player.setVolume(90);
+            player.unMute();
+          } else if (!userWantsSound && !muted) {
+            player.mute();
+          }
+          syncMuteButton();
+        } catch (e) {}
+      }, 400);
+    }
+    function stopWatchdog() { if (watchdog) { clearInterval(watchdog); watchdog = null; } }
+
+    function unmuteWithRetries() {
+      userWantsSound = true;
+      startWatchdog();
+      if (!player || !playerReady) { setTimeout(unmuteWithRetries, 120); return; }
+      let tries = 0;
+      const attempt = () => {
+        try {
+          player.setVolume(90);
+          player.unMute();
+          player.playVideo();
+        } catch (e) {}
+        setTimeout(() => {
+          let stillMuted = true;
+          try { stillMuted = player.isMuted(); } catch (e) {}
+          if (stillMuted && tries < 6) { tries++; attempt(); }
+          else { syncMuteButton(); }
+        }, 200);
+      };
+      attempt();
+    }
+
+    function openOverlay() {
+      overlay.classList.remove('is-dismissed');
+      document.documentElement.classList.add('intro-locked');
+      btnReplay.classList.remove('is-ready');
+      try { player && player.seekTo(0, true); player && player.playVideo(); } catch (e) {}
+      if (userWantsSound) startWatchdog();
+    }
+
+    function closeOverlay() {
+      overlay.classList.add('is-dismissed');
+      document.documentElement.classList.remove('intro-locked');
+      try { player && player.pauseVideo(); } catch (e) {}
+      stopWatchdog();
+      setTimeout(() => btnReplay.classList.add('is-ready'), 400);
+    }
+
+    btnEnter.addEventListener('click', closeOverlay);
+    btnSkip.addEventListener('click', closeOverlay);
+    btnReplay.addEventListener('click', openOverlay);
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && !overlay.classList.contains('is-dismissed')) closeOverlay();
+    });
+
+    btnMute.addEventListener('click', () => {
+      if (!player) return;
+      let muted = true;
+      try { muted = player.isMuted(); } catch (e) {}
+      if (muted) {
+        unmuteWithRetries();
+      } else {
+        userWantsSound = false;
+        try { player.mute(); } catch (e) {}
+        syncMuteButton();
+      }
+    });
+
+    btnPause.addEventListener('click', () => {
+      if (!player) return;
+      try {
+        const state = player.getPlayerState();
+        if (state === YT.PlayerState.PLAYING) {
+          player.pauseVideo();
+        } else {
+          player.playVideo();
+        }
+      } catch (e) {}
+    });
+  })();
+
+  document.querySelectorAll('.cli__item').forEach(item => {
+    item.addEventListener('click', (e) => {
+      e.preventDefault();
+      item.classList.toggle('done');
+      const group = item.closest('.cli');
+      const items = group.querySelectorAll('.cli__item');
+      const done = group.querySelectorAll('.cli__item.done').length;
+      group.querySelector('[data-count]').textContent = done + ' / ' + items.length;
+    });
+  });
+</script>
+</body>
+</html>
