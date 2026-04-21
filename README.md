@@ -1,4 +1,4 @@
-# Operation: Bieber Drop
+# Operation Bieber World Tour
 
 A tactical briefing document prepared by four autonomous agents in advance of the SWAG III US Tour onsale window.
 
