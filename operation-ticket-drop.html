@@ -295,6 +295,41 @@
     50%      { border-color: rgba(245,195,205,.85); transform: scale(1.12); }
     70%      { border-color: rgba(245,195,205,.7); transform: scale(1); }
   }
+  .xm__sound-cta {
+    position: absolute; top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    display: inline-flex; align-items: center; gap: 16px;
+    padding: 20px 30px 20px 26px;
+    background: var(--pink); color: #0e0e10;
+    border: 0; cursor: pointer;
+    font-family: var(--mono); font-weight: 700;
+    text-transform: uppercase;
+    z-index: 12;
+    box-shadow:
+      0 0 0 2px rgba(245,195,205,.5),
+      0 0 40px rgba(245,195,205,.55),
+      0 10px 40px rgba(0,0,0,.6);
+    animation: sound-cta-pulse 1.5s ease-in-out infinite;
+    transition: opacity .35s ease, transform .35s ease;
+  }
+  .xm__sound-cta svg { flex-shrink: 0; }
+  .xm__sound-cta .cta-stack { display: inline-flex; flex-direction: column; align-items: flex-start; gap: 4px; line-height: 1; }
+  .xm__sound-cta .cta-big { font-size: 16px; letter-spacing: .26em; font-weight: 700; }
+  .xm__sound-cta .cta-small { font-size: 10px; letter-spacing: .22em; font-weight: 500; opacity: .6; }
+  .xm__sound-cta:hover { animation: none; transform: translate(-50%, -50%) scale(1.04); box-shadow: 0 0 0 3px rgba(245,195,205,.8), 0 0 70px rgba(245,195,205,.85), 0 10px 40px rgba(0,0,0,.6); }
+  .xm__sound-cta:focus-visible { outline: 3px solid #fff; outline-offset: 4px; animation: none; }
+  @keyframes sound-cta-pulse {
+    0%, 100% { box-shadow: 0 0 0 2px rgba(245,195,205,.5), 0 0 40px rgba(245,195,205,.55), 0 10px 40px rgba(0,0,0,.6); }
+    50%      { box-shadow: 0 0 0 8px rgba(245,195,205,.2), 0 0 80px rgba(245,195,205,.95), 0 10px 40px rgba(0,0,0,.6); }
+  }
+  .transmission.is-audible .xm__sound-cta {
+    opacity: 0; pointer-events: none; transform: translate(-50%, -50%) scale(.9);
+  }
+  .transmission.is-dismissed .xm__sound-cta { display: none; }
+  @media (prefers-reduced-motion: reduce) {
+    .xm__sound-cta { animation: none; }
+  }
+
   .xm__frame > .corner.bl { transform-origin: bottom left; }
   .xm__frame > .corner.br { transform-origin: bottom right; }
   .xm__frame::before { transform-origin: top left; }
@@ -455,6 +490,17 @@
       <span class="corner bl" aria-hidden="true"></span>
       <span class="corner br" aria-hidden="true"></span>
       <div id="xm-player"></div>
+      <button class="xm__sound-cta" id="btn-sound-cta" type="button" aria-label="Tap to unmute transmission">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <path d="M11 5L6 9H2v6h4l5 4V5z" fill="currentColor"/>
+          <line x1="16" y1="9" x2="22" y2="15" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/>
+          <line x1="22" y1="9" x2="16" y2="15" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/>
+        </svg>
+        <span class="cta-stack">
+          <span class="cta-big">Tap for Sound</span>
+          <span class="cta-small">Transmission muted · click to enable audio</span>
+        </span>
+      </button>
       <div class="xm__caption caps-sm">
         <span>Exhibit A &nbsp;/&nbsp; Pre-Mission Morale Artifact</span>
         <em>— The subject, in his own voice.</em>
@@ -843,6 +889,7 @@
     const btnReplay = document.getElementById('btn-replay');
     const btnMute = document.getElementById('btn-mute');
     const btnPause = document.getElementById('btn-pause');
+    const btnSoundCta = document.getElementById('btn-sound-cta');
 
     document.documentElement.classList.add('intro-locked');
 
@@ -859,6 +906,7 @@
       try { muted = player.isMuted(); } catch (e) {}
       btnMute.textContent = muted ? 'Unmute' : 'Mute';
       btnMute.setAttribute('aria-pressed', String(muted));
+      overlay.classList.toggle('is-audible', !muted);
     }
 
     function enforceAudioPreference() {
@@ -979,6 +1027,8 @@
     document.addEventListener('keydown', (e) => {
       if (e.key === 'Escape' && !overlay.classList.contains('is-dismissed')) closeOverlay();
     });
+
+    btnSoundCta.addEventListener('click', () => { unmuteWithRetries(); });
 
     btnMute.addEventListener('click', () => {
       if (!player) return;
