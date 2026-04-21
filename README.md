@@ -2,6 +2,15 @@
 
 A clinical response to an incurable diagnosis of Bieber fever, first presenting in 2009 and periodically flaring whenever a tour is announced. Symptoms include, but are not limited to: involuntary Ticketmaster refreshes, elevated heart rate during "One Less Lonely Girl," and the unshakeable belief that this time, the front row is attainable.
 
+## Rationale
+
+The subject's belief is not irrational. Prior evidence supports the operating hypothesis that close proximity is attainable:
+
+- **Chicago Jingle Ball, 2010.** Subject held a second-row seat. Justin Bieber, unprompted, threw his guitar pick into the crowd. Subject caught it.
+- **Most recent world tour.** Subject secured second-row tickets during general onsale. Tour was cancelled before the seats could be used. Unfinished business.
+
+Future onsales are therefore treated as a continuation of prior engagement — not speculation.
+
 There is no known treatment. The briefing document is a coping mechanism.
 
 > This document is for operational planning only. It does not constitute a guarantee of outcome.
